@@ -1,11 +1,13 @@
 const express = require('express');
+
 const app = express();
+
 const port = 3000;
 
 app.get('/travel', (req, res) => {
-  res.send('My favourite place - Greece.');
+  res.send("Моё любимое место для путешествий — Япония.");
 });
 
 app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`);
+  console.log(`Сервер запущен на http://localhost:${port}`);
 });
