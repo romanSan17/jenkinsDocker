@@ -31,7 +31,7 @@ pipeline {
 
     post {
         always {
-            sh "docker rm -f ${CONTAINER_NAME} || true"
+            sh "docker -f ${CONTAINER_NAME} || true"
         }
     }
 }
