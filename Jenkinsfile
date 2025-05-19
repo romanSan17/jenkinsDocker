@@ -34,7 +34,7 @@ pipeline {
 
     post {
         always {
-            sh 'docker rm -f travel-app-test || true'
+            sh 'docker -f travel-app-test || true'
         }
     }
 }
