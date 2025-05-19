@@ -8,27 +8,22 @@ pipeline {
     }
 
     stages {
-        stage('Build Docker Image') {
+        stage('Build Docker image') {
             steps {
-                echo "Building Docker image..."
                 sh "docker build -t ${IMAGE_NAME} ."
             }
         }
 
-        stage('Run Container') {
+        stage('Run container') {
             steps {
-                echo "Stopping previous container if exists..."
                 sh "docker rm -f ${CONTAINER_NAME} || true"
-                echo "Running new container..."
                 sh "docker run -d --name ${CONTAINER_NAME} -p ${PORT}:${PORT} ${IMAGE_NAME}"
             }
         }
 
-        stage('Test Endpoint') {
+        stage('Test /travel endpoint') {
             steps {
-                echo "Waiting for container to start..."
-                sleep 5
-                echo "Testing /travel endpoint..."
+                sleep 5 // Подождать, пока контейнер запустится
                 sh "curl --fail http://localhost:${PORT}/travel"
             }
         }
@@ -36,7 +31,6 @@ pipeline {
 
     post {
         always {
-            echo "Cleaning up container..."
             sh "docker rm -f ${CONTAINER_NAME} || true"
         }
     }
